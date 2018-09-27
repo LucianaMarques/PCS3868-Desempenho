@@ -1,0 +1,40 @@
+
+void *ROT2() 
+{ 
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+            tarefa1();
+        
+}
+
+void *ROT3() 
+{
+int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+            tarefa2();
+        
+}
+
+void *ROT5() 
+{ 
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+            tarefa3();
+        
+}
+
+void *ROT6() 
+{
+int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+            tarefa4();
+        
+}

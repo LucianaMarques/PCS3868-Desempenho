@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+task spec tarefa1();
+task spec tarefa2();
+task spec tarefa3();
+task spec tarefa4();
+task spec tarefa5();
+task spec tarefa6();
+
+task body tarefa1()
+{printf("Tarefa1\n");
+}
+
+task body tarefa2()
+{printf("Tarefa2\n");
+}
+task body tarefa3()
+{printf("Tarefa3\n");
+}
+task body tarefa4()
+{printf("Tarefa4\n");
+}
+task body tarefa5()
+{printf("Tarefa5\n");
+}
+task body tarefa6()
+{printf("Tarefa6\n");
+}
+
+int main()
+{
+    printf("Inicio\n");
+    //create 1,tarefa1();
+    //create 1,tarefa2();
+    //create 1,tarefa3();
+    //create 1,tarefa4();
+    //create 1,tarefa5();
+    //create 1,tarefa6();
+    cobegin
+        cobegin
+            tarefa1();
+        also
+            tarefa2();
+        coend
+    also
+        cobegin
+            tarefa3();
+        also
+            tarefa4();
+        coend
+    coend
+    wait_all();
+    cobegin
+            tarefa5();
+        also
+            tarefa6();
+    coend
+    return 0;
+}
+
+

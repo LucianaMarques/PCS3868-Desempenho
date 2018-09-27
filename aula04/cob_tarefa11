@@ -1,0 +1,110 @@
+
+void *ROT1() 
+{ 
+ int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+        
+pthread_t  _cpar_tid_2;
+pthread_create(&_cpar_tid_2,NULL,ROT2,(void *) NULL);
+
+pthread_t  _cpar_tid_3;
+pthread_create(&_cpar_tid_3,NULL,ROT3,(void *) NULL);
+
+pthread_join(_cpar_tid_2,NULL);
+
+pthread_join(_cpar_tid_3,NULL);
+
+    
+}
+
+void *ROT4() 
+{
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+        
+pthread_t  _cpar_tid_5;
+pthread_create(&_cpar_tid_5,NULL,ROT5,(void *) NULL);
+
+pthread_t  _cpar_tid_6;
+pthread_create(&_cpar_tid_6,NULL,ROT6,(void *) NULL);
+
+pthread_join(_cpar_tid_5,NULL);
+
+pthread_join(_cpar_tid_6,NULL);
+
+    
+}
+
+void *ROT7() 
+{ 
+ int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+        
+}
+
+void *ROT8() 
+{
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+    
+}
+
+#include "cob_1_tarefa11"

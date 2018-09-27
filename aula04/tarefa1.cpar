@@ -1,0 +1,48 @@
+#include <stdio.h>
+
+void tarefa1()
+{printf("Tarefa1\n");
+}
+
+void tarefa2()
+{printf("Tarefa2\n");
+}
+void tarefa3()
+{printf("Tarefa3\n");
+}
+void tarefa4()
+{printf("Tarefa4\n");
+}
+void tarefa5()
+{printf("Tarefa5\n");
+}
+void tarefa6()
+{printf("Tarefa6\n");
+}
+
+int main()
+{
+    printf("Inicio\n");
+    cobegin
+        cobegin
+            tarefa1();
+        also
+            tarefa2();
+        coend
+    also
+        cobegin
+            tarefa3();
+        also
+            tarefa4();
+        coend
+    coend
+    wait_all();
+    cobegin
+            tarefa5();
+        also
+            tarefa6();
+    coend
+    return 0;
+}
+
+

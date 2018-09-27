@@ -1,0 +1,88 @@
+
+void *ROT2() 
+{ 
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+        
+}
+
+void *ROT3() 
+{
+int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+        
+}
+
+void *ROT5() 
+{ 
+ int _cpar_id_thread_;
+ insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+        
+}
+
+void *ROT6() 
+{
+int _cpar_id_thread_;
+insert_id_thread();
+int _id_thread_=get_id_thread_gl();
+
+  _cpar_arg_task_0_ *_cpar_arg_0_;
+
+  _cpar_arg_task_1_ *_cpar_arg_1_;
+
+  _cpar_arg_task_2_ *_cpar_arg_2_;
+
+  _cpar_arg_task_3_ *_cpar_arg_3_;
+
+  _cpar_arg_task_4_ *_cpar_arg_4_;
+
+  _cpar_arg_task_5_ *_cpar_arg_5_;
+
+            ();
+        
+}

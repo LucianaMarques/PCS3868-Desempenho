@@ -1,0 +1,61 @@
+
+#include <stdio.h>
+
+monitor buffer
+shared char c;
+{
+char leia()
+{
+   char ch;
+   when(c!='-')
+   { ch=c;
+     c='-';
+   }
+   
+   return ch;
+}
+void escreva(carac)
+char carac;
+{
+   when (c=='-')
+   {
+     c=carac;
+     fflush(stdout);
+   }
+}
+}
+{
+  c='-';
+}
+task spec produz();
+task body produz()
+{
+   char x;
+   printf("DIGITE ( . para finalizar):");
+   fflush(stdout);
+   do
+   { x=getchar();
+     buffer.escreva(x);
+   } while (x!='.');
+   printf("FIM ESCRITA\n");
+   fflush(stdout);
+}
+task spec consome();
+task body consome()
+{
+   char x=NULL;
+   /*while (x=buffer.leia()!='.')*/
+   
+   while (x!='.')
+   { 
+      x=buffer.leia();
+      putchar(x);
+      fflush(stdout);
+   }
+}
+void main()
+{
+create 1,produz();
+create 1,consome();
+}
+

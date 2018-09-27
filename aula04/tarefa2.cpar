@@ -1,0 +1,61 @@
+#include <stdio.h>
+
+#define MAX 100
+
+shared double A[MAX][MAX];
+shared double B[MAX][MAX];
+shared double C[MAX][MAX];
+shared double D[MAX][MAX];
+
+void init_A (double A[MAX][MAX])
+{
+    forall i = 1 to MAX
+    {
+        forall j = 1 to MAX
+        {
+            A[i][j] = i + j;
+        }
+    }
+}
+
+void init_B (double B[MAX][MAX])
+{
+    forall i = 1 to MAX
+    {
+        forall j = 1 to MAX
+        {
+            B[i][j] = i + 2*j;
+        }
+    }
+}
+
+void init_C (double C[MAX][MAX])
+{
+    forall i = 1 to MAX
+    {
+        forall j = 1 to MAX
+        {
+            C[i][j] = 2*i + 3*j;
+        }
+    }
+}
+
+void init_D (double A[MAX][MAX])
+{
+    forall i = 1 to MAX
+    {
+        forall j = 1 to MAX
+        {
+            D[i][j] = 2*i + j;
+        }
+    }
+}
+
+int main()
+{
+    init_A(A);
+    init_B(B);
+    init_C(C);
+    init_D(D);
+    return 0;
+}
