@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <omp.h>
-#define SIZE 10
+#define SIZE 1000
 
 int A [SIZE][SIZE];
 int B [SIZE][SIZE];
