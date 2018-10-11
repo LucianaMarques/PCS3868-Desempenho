@@ -27,10 +27,11 @@ int main(){
   omp_set_num_threads(2);
   #pragma omp
   {
-    #pragma parallel for num_threads(2)
-    for (int i = 0; i < SIZE; i ++)
+    int i,j;
+    #pragma parallel for num_threads(2) shared (A,B,C,D) private(i,j)
+    for (i = 0; i < SIZE; i ++)
     {
-      for (int j = 0; j < SIZE; j++)
+      for (j = 0; j < SIZE; j++)
       {
         A[i][j] = A[i][j]*B[i][j];
         C[i][j] = C[i][j]*D[i][j];
@@ -38,13 +39,14 @@ int main(){
         printf("%d \n", C[i][j]);
       }
     }
-    #pragma parallel for
-    for (int i = 0; i < SIZE; i ++)
+    int k, l;
+    #pragma parallel for shared (A,C,R) private(k,l)
+    for (k = 0; k < SIZE; k ++)
     {
-      for (int j = 0; j < SIZE; j++)
+      for (l = 0; l < SIZE; l++)
       {
-        R[i][j] = A[i][j] + C[i][j];
-        printf("%d \n", R[i][j]);
+        R[k][l] = A[k][l] + C[k][l];
+        printf("%d \n", R[k][l]);
       }
     }
   }
