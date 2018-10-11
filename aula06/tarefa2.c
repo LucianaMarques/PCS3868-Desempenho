@@ -48,6 +48,10 @@ int main()
         int k, l;
         for (k = 1; k < SIZE; k ++)
         {
+          while(omp_test_lock(&sem1))
+          {
+
+          }
           omp_set_lock(&sem2);
           B[i] = Y[i] + A[i-1];
           omp_set_unlock(&sem2);
@@ -59,6 +63,10 @@ int main()
         int x,w;
         for (x = 1; x < SIZE; x++)
         {
+          while(omp_test_lock(&sem2))
+          {
+
+          }
           C[i] = Y[i] + B[i-1]*2;
         }
       }
