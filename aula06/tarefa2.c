@@ -9,8 +9,12 @@ int A[SIZE];
 int B[SIZE];
 int C[SIZE];
 
-omp_lock_t sem1;
-omp_lock_t sem2;
+omp_lock_t sem1_done;
+omp_lock_t sem1_doing;
+omp_lock_t sem2_done;
+omp_lock_t sem2_doing;
+
+int i, k, x, j;
 
 int main()
 {
@@ -30,44 +34,40 @@ int main()
   {
     #pragma omp sections
     {
-      int i,j;
-      #pragma omp section
+      #pragma omp section shared(A) private(i)
       {
+        #pragma parallel for
         for (i = 0; i < SIZE - 1; i++)
         {
-          omp_set_lock(&sem1);
           A[i] = i*3 + 15;
-          omp_set_unlock(&sem1);
         }
       }
-      #pragma omp section
+      int k;
+      #pragma omp section shared (B,Y,A) private(k)
       {
         omp_set_lock(&sem2);
         B[0] = 1;
         omp_set_unlock(&sem2);
-        int k, l;
+        #pragma parallel for
         for (k = 1; k < SIZE; k ++)
         {
-          while(omp_test_lock(&sem1))
-          {
-
-          }
+          omp_set_lock(&sem1);
           omp_set_lock(&sem2);
-          B[i] = Y[i] + A[i-1];
+          B[k] = Y[k] + A[k-1];
           omp_set_unlock(&sem2);
         }
       }
-      #pragma omp section
+      #pragma omp section shared(C,Y,B) private(x)
       {
         C[0] = 1;
-        int x,w;
+        #pragma parallel for
         for (x = 1; x < SIZE; x++)
         {
           while(omp_test_lock(&sem2))
           {
 
           }
-          C[i] = Y[i] + B[i-1]*2;
+          C[x] = Y[x] + B[x-1]*2;
         }
       }
     }
