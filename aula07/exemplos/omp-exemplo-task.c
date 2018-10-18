@@ -19,7 +19,7 @@ int main()
            }
           #pragma omp task 
            {
-            usleep(1);
+            usleep(1); 
             printf(" TASK thread %d ",omp_get_thread_num());
            }
         }
