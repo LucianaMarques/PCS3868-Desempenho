@@ -6,7 +6,7 @@ The repository is divided in folders for each lesson. In every folder, there is 
 
 A brief description:
 
-- Lession 1:
+- Lession 1: Mainly linux commands
 - Lession 2:
 - Lession 3:
 - Lession 4:
