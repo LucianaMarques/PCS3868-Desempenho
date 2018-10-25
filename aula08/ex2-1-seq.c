@@ -7,12 +7,12 @@
 #define SEQ_SIZE 12
 #define TRUE 0
 #define FALSE 1
+#define n_threads 4
 
 int main()
 {
+	int i = 0;
 
-    	int i = 0;
-    	int j;
     	int igual;
     	char * buff;
     	char sequencia[SEQ_SIZE];
@@ -62,25 +62,57 @@ int main()
 	 * Busca da string no arquivo
 	 */
 
-	igual = FALSE;
-   	for (i=0;i<n_seq;i++){	  
-        	buff=seq_vet[i];
-        	printf("i=%d buff %s\n ",i,buff);
-        	for (j = 0; j < SEQ_SIZE-2; j++){
-			if (sequencia[j] != buff[j]){
-				break;
+	omp_set_num_threads(n_threads);
+	#pragma omp 
+	{
+		int p, j, k, n, inicio, fim, equal_buff = 1;
+		igual = FALSE;
+		#pragma parallel for num_threads(n_threads) private (p,j,k, equal_buff) sharead (igual, SEQ_SIZE, buff, seq_vet, sequencia)
+		{
+
+		   	for (k = 0; k < n_threads; k++)
+			{
+
+				n = n_seq/n_threads;
+
+				inicio = k*n;
+				fim = inicio + n;
+				
+				if (k == (n_threads-1))
+					fim = fim + n_seq%n_threads;
+				
+				printf("k: %d inicio: %d fim: %d\n", k, inicio, fim);
+
+				for (p=inicio;p<fim;p++){		
+
+        				buff=seq_vet[p];
+					equal_buff = 1;
+        				//printf("i=%d buff %s\n ",i,buff);
+
+					for (j = 0; j < SEQ_SIZE-2 && equal_buff == 1; j++){
+							if (sequencia[j] != buff[j]){
+								#pragma omp critical
+								{
+									equal_buff = 0;
+								}
+							}
+					}
+
+        				if (j== SEQ_SIZE-2) {
+						#pragma omp critical
+						{
+							igual=TRUE;
+						}
+        				}
+   				}
+
+   				if (igual == TRUE)
+					printf("Sequencia encontrada na linha\n");
+   				else
+					printf("Sequencia nao encontrada i=%d\n",i);
 			}
 		}
-        	if (j== SEQ_SIZE-2) {
-              		igual=TRUE;
-              		break;
-        	}
-   	}
-
-   	if (igual == TRUE)
-		printf("Sequencia encontrada na linha %d\n",i);
-   	else
-		printf("Sequencia nao encontrada i=%d\n",i);
+	}
 
    	fclose(f);
    	return 0;
