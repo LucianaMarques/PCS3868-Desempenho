@@ -22,7 +22,7 @@ void main()
 
      	pid_t pid[n_processos]; //pid_t é um tipo que guarda o id do processo
    
-//	int status;
+	int status;
 
 	struct shmid_ds *buf; //estrutura de dados do kernel que referencia um pedaço de memória compartilhada
 
@@ -65,7 +65,7 @@ void main()
        		for (j=0;j<size;j++){
                		((matrizes *)matriz)->a[i][j]=1.5;
                		((matrizes *)matriz)->b[i][j]=2.6;
-      	}
+      		}
    	
 	if ((int)pid_p == 0){     //filhos
       		shmdt (matriz);
