@@ -3,11 +3,14 @@
 #define n_threads 3
 #include <pthread.h>
 #include <stdlib.h>
+
 double a[1000][1000], b[1000][1000];
 int n_iter;
 pthread_t tid[n_threads];
+
 void *inicia_matrizes(void *arg)
-{  int i,j,inicio,fim,k;
+{  
+   int i,j,inicio,fim,k;
    k=*(int *)arg;   
    inicio=(k+1)*n_iter;
    fim=inicio+n_iter;
@@ -16,7 +19,7 @@ void *inicia_matrizes(void *arg)
        for (j=0;j<size;j++){
                a[i][j]=1.5;
                b[i][j]=2.6;
-   }
+        }
 }
 void main()
 {  int i,k,id_thread[n_threads];
