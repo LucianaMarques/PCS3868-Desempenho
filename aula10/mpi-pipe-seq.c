@@ -20,8 +20,10 @@ void tarefa1()
         X[i][j]=i*2-j;
       }
     for (i=0;i<499;i++) {
-         for(j=1;j<499;j++)
+         for(j=1;j<499;j++){
                 X[i][j]=X[i+1][j-1]*3-X[i+1][j+1];
+                MPI_Ssend(buf, BUFSIZE, MPI_INT, 1, 11, MPI_COMM_WORLD);
+        }
     }
     printf("tarefa1 FIM\n");
     fflush(stdout);
@@ -36,8 +38,10 @@ void tarefa2()
         Y[i][j]=i*3-j;
       }
     for (i=0;i<499;i++) {
-         for(j=1;j<499;j++)
+         for(j=1;j<499;j++){
                 Y[i][j]=Y[i+1][j-1]*4-Y[i+1][j+1];
+                MPI_Ssend(buf, BUFSIZE, MPI_INT, 1, 11, MPI_COMM_WORLD);
+         }
     }
     printf("tarefa2 FIM\n");
     fflush(stdout);
@@ -50,8 +54,12 @@ void tarefa3()
         Z[i][j]=i*2+j;
       }
     for (i=0;i<499;i++) {
-         for(j=1;j<499;j++)
+      MPI_Buffer_attach(buf,size);
+         for(j=1;j<499;j++){
                 Z[i][j]=Z[i+1][j-1]*2-Z[i+1][j+1];
+                MPI_Bsend(&vetor[0]+n/n_nos,n/n_nos,MPI_INT,i,10,MPI_COMM_WORLD);
+        }
+        MPI_Buffer_detach(buf,&size);
     }
     printf("tarefa3 FIM\n");
     fflush(stdout);
@@ -65,8 +73,12 @@ void tarefa4()
       for (j=0;j<500;j++)
          W[i][j]=0;
   for (i=0;i<500;i++) {
-          for (j=0;j<500;j++)
+          for (j=0;j<500;j++){
+            MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
+            MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
+            MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
              W[i][j]=X[i][j]+Y[i][j]+Z[i][j];
+          }
   }
     printf("tarefa4 W[0][0]=%d W[300][400]=%d  W[499][499]=%d\n",W[0][0], W[300][400],W[499][499]);
     fflush(stdout);
@@ -92,21 +104,17 @@ char			*argv[];
         if (rank == 0)
         {
           tarefa1();
-          MPI_Send(buf, BUFSIZE, MPI_INT, 1, 11, MPI_COMM_WORLD);
         }
         if (rank == 1)
         {
           tarefa2();
-          MPI_Send(buf, BUFSIZE, MPI_INT, 1, 11, MPI_COMM_WORLD);
         }
         if (rank == 2)
         {
-          MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
           tarefa3();
         }
         if (rank == 3)
         {
-          MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
           tarefa4();
         }
 	return(0);
