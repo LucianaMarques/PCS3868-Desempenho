@@ -1,0 +1,45 @@
+#include <stdio.h>
+task spec tarefa1();
+task spec tarefa2();
+task spec tarefa3();
+task spec tarefa4();
+task spec tarefa5();
+task spec tarefa6();
+
+task body tarefa1(){printf("1\n");}
+task body tarefa2(){printf("2\n");}
+task body tarefa3(){printf("3\n");}
+task body tarefa4(){printf("4\n");}
+task body tarefa5() {printf("5\n");}
+task body tarefa6() {printf("6\n");}
+
+main()
+{printf("seq1\n");
+
+cobegin
+    cobegin
+      create 1,tarefa1();
+    also
+      create 1,tarefa2();
+    coend
+
+    printf("seq2\n");
+
+    cobegin
+      create 1,tarefa5();
+    also
+      create 1,tarefa6();
+    coend
+
+ also
+
+    cobegin
+      create 1,tarefa3();
+    also
+      create 1,tarefa4();
+    coend
+    
+    printf("seq3\n");
+
+ coend
+}

@@ -1,0 +1,106 @@
+/* #define IMPRIME 1 */
+#include <stdio.h>
+#include <math.h>
+#include <sys/time.h>
+#include "mede_time.h"
+
+shared int SIZE;
+
+shared int x;
+shared double a[2000][2000];
+
+
+/*inicia matriz*/
+task spec init_matrix();
+task body init_matrix()
+  {
+     int i,j;
+      forall i=0 to (SIZE-1) {
+
+      j=0;
+       for (j=0;j<SIZE;j++){
+
+         a[i][j]=i+2*j;
+
+       }
+      }
+  }
+
+
+/*imprime matriz */
+print_mat (a)
+double a[2000][2000];
+   {
+      int i,j;
+
+      for (i=0;i<SIZE;i++){
+       for (j=0;j<SIZE;j++)
+         printf (" %10.2f", a[i][j]);
+       puts ("");
+      }
+      puts ("");
+   }
+
+task spec busca_matrix();
+task body busca_matrix()
+{
+ int i,j;
+ int inicio=0;
+ printf("inicio tar\n");
+ fflush(stdout);
+ forall i=1 to SIZE
+   { if (inicio==0) {
+         printf("i inicial=%d \n",i);
+         fflush(stdout);
+         inicio=1;
+     }
+     for (j=0;j<SIZE-1;j++){
+       if (a[i][j]==x)
+       {printf("found i=%d / j=%d \n",i,j);}
+     }
+   }
+ printf("ultimo i=%d\n",i);
+ fflush(stdout);
+}
+
+main(argc, argv)
+int argc;
+char **argv;
+{
+  int nprocs;
+
+  if (argc>1) {
+    SIZE = atoi(argv[1]);
+    printf("Matriz %dx%d\n",SIZE,SIZE);
+  }
+  else {
+    printf("Tamanho da matriz: ");
+    scanf("%d",&SIZE);
+  }
+  if (argc>2) {
+    nprocs = atoi(argv[2]);
+    printf("Usando %d processadores\n",nprocs);
+  }
+  else {
+    printf ("Numero de processadores: ");
+    scanf("%d",&nprocs);
+  }
+  if (argc>3) {
+    x = atoi(argv[3]);
+    printf("Searching %d\n",x);
+  }
+  else {
+    printf ("Searched integer: ");
+    scanf("%d",&x);
+  }
+
+  create nprocs, init_matrix();
+  wait_all();
+  TIMER_CLEAR;
+  TIMER_START;
+  print_mat(a);
+  create nprocs, busca_matrix();
+  wait_all();
+  TIMER_STOP;
+  printf ("TEMPO [%d]: %12.7f\n",SIZE,TIMER_ELAPSED );
+}

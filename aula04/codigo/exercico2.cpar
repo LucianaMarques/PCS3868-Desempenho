@@ -1,0 +1,133 @@
+/* #define IMPRIME 1 */
+/*multiplicacao de matrizes: outer-product*/
+#include <stdio.h>
+#include <math.h>
+#include <sys/time.h>
+#include "mede_time.h"
+#include <unistd.h>
+
+shared int SIZE;
+shared int nprocs;
+
+shared double a[2000];
+shared double b[2000];
+shared double c[2000];
+shared double x[2000];
+shared double y[2000];
+
+/*inicia matriz*/
+task spec init_matrix();
+task body init_matrix()
+  {
+     int i;
+      forall i=0 to (SIZE-1) {
+         a[i] = 0;
+         b[i] = (double)0.0;
+         c[i] = (double)0.0;
+         x[i] = i;
+         y[i] = i+1;
+
+
+      }
+  }
+
+/*imprime matriz */
+print_mat (a)
+double a[2000];
+   {
+      int i;
+
+      for (i=0;i<10;i++){
+         printf("%f ", a[i]);
+      }
+      puts("\n");
+   }
+
+/*imprime resultado*/
+print_mats (a, b, c, x, y)
+double a[2000],b[2000],c[2000], x[2000], y[2000];
+   {
+      puts ("Matriz A");
+      print_mat (a);
+      puts("...");
+
+      puts ("Matriz B");
+      print_mat (b);
+      puts("...");
+
+      puts ("Matriz C");
+      print_mat (c);
+      puts("...");
+
+      puts ("Matriz X");
+      print_mat (x);
+      puts("...");
+
+      puts ("Matriz Y");
+      print_mat (y);
+      puts("...");
+   }
+
+task spec tar1();
+task body tar1()
+{
+
+int i;
+
+ forall i=0 to (SIZE-2) {
+    a[i] = x[i]*3.0;
+
+
+}}
+
+task spec tar2();
+task body tar2()
+{
+int i;
+b[0]=1;
+ forall i=1 to (SIZE-1) {
+    b[i] = y[i] + a[i-1];
+}}
+
+task spec tar3();
+task body tar3()
+{
+int i;
+c[0]=1;
+ forall i=1 to (SIZE-1) {
+    c[i] = a[i-1]*2;
+}}
+
+main(argc, argv)
+int argc;
+char **argv;
+{
+  SIZE=2000;
+
+  if (argc>1) {
+    nprocs = atoi(argv[1]);
+    printf("Usando %d processadores\n",nprocs);
+  }
+  else {
+    printf ("Numero de processadores: ");
+    scanf("%d",&nprocs);
+  }
+
+  create nprocs, init_matrix();
+  wait_all();
+  TIMER_CLEAR;
+  TIMER_START;
+
+  create nprocs, tar1();
+  wait_all();
+  cobegin
+    create nprocs,tar2();
+  also
+    create nprocs,tar3();
+  coend
+
+  print_mats(a,b,c,x,y);
+
+  TIMER_STOP;
+  printf ("TEMPO [%d]: %12.7f\n",SIZE,TIMER_ELAPSED );
+}
