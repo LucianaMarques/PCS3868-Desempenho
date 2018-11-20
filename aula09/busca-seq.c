@@ -66,7 +66,7 @@ char			*argv[];
 			printf("Digite a sequencia que deseja buscar: ");
 			scanf("%s",&sequencia);
 
-			MPI_Send(void *buf,int count,MPI_Datatype dtype,int dest,int tag,MPI_Comm comm);
+			MPI_Send();
 
 
 			k=0;
@@ -96,7 +96,7 @@ char			*argv[];
 
 	else
 	{
-				MPI_Recv(buf, BUFSIZE, MPI_INT, 0, 11, MPI_COMM_WORLD, &status);
+				MPI_Recv();
 
 				k=0;
 				for (i=0;i<n_seq;i++){
@@ -113,7 +113,7 @@ char			*argv[];
 							}
 				}
 
-				MPI_Send(void *buf,int count,MPI_Datatype dtype,int dest,int tag,MPI_Comm comm);
+				MPI_Send();
 	}
 
 	fclose(f);

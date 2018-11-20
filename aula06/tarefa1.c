@@ -35,8 +35,8 @@ int main(){
       {
         A[i][j] = A[i][j]*B[i][j];
         C[i][j] = C[i][j]*D[i][j];
-        printf("%d ", A[i][j]);
-        printf("%d \n", C[i][j]);
+        //printf("%d ", A[i][j]);
+        //printf("%d \n", C[i][j]);
       }
     }
     int k, l;
@@ -46,7 +46,7 @@ int main(){
       for (l = 0; l < SIZE; l++)
       {
         R[k][l] = A[k][l] + C[k][l];
-        printf("%d \n", R[k][l]);
+        printf("%d", R[k][l]);
       }
     }
   }
