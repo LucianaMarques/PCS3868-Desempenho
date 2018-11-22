@@ -11,7 +11,7 @@ Numero de elementos do vetor: multiplo do número de processos.
 int main(argc, argv)
 
 int			argc;
-char			*argv[];
+char		*argv[];
 
 {
 	int		n,n_nos, rank;
@@ -43,18 +43,21 @@ fflush(stdout);
               a[i][j]=1;
               
           for (i=1;i<n_nos;i++)
-{
-printf("rank 0 antes de Send\n");
-fflush(stdout);
+          {
+            printf("rank 0 antes de Send\n");
+            fflush(stdout);
 
             MPI_Isend(&a[0][0]+(k*n*i),k*n,MPI_DOUBLE,i,10,MPI_COMM_WORLD,&req);
-printf("rank 0 apos Send\n");
-fflush(stdout); 
-}        }
+
+            printf("rank 0 apos Send\n");
+
+            fflush(stdout); 
+          }        
+        }
         else {
           MPI_Recv(a,k*n,MPI_DOUBLE,0,10,MPI_COMM_WORLD,&status);
-        printf("a[0][0]=%f\n",a[0][0]);
-        fflush(stdout);
+          printf("a[0][0]=%f\n",a[0][0]);
+          fflush(stdout);
         }
         parcial_soma=0;
         for(i=0;(i<n/n_nos);i++)
