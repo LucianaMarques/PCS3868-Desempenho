@@ -2987,7 +2987,7 @@ abaacabbbb
 aabcbbbbcb
 babbabbbba
 accbbbccaa
-bbccbbaaaa
+bonjouuuur
 bccbaaaacb
 bcababaabb
 aaaacccaca
@@ -2999,7 +2999,7 @@ bbbbaaaaac
 acaccbcbcc
 aacbacacac
 cbcabaabcc
-rcueodvtpr
+bonjouuuur
 caacabbcca
 cbbcccccac
 ccaacabaac
@@ -8274,7 +8274,7 @@ bcababaabb
 aaaacccaca
 cccbaacabb
 caaacbacbc
-ccccbcbacb
+cccccccccc
 acaaabbcca
 bbbbaaaaac
 acaccbcbcc
@@ -10223,7 +10223,7 @@ abbcbbcbcc
 aaaabcaaca
 caacccabba
 bbcaaccaab
-acbacaaaac
+cccccccccc
 abbaaacbba
 caacbabaaa
 cbabcccaaa
@@ -11971,7 +11971,7 @@ aababbacbb
 bbcaaacabb
 abcaccaabb
 abccabaabc
-ccbbccccab
+cccccccccc
 aaabaaabbc
 bccbcccaab
 aabccbbbbb
