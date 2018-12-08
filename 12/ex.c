@@ -22,7 +22,7 @@ int			argc;
 char			*argv[];
 
 {
-	int		i,n,n_nos, rank;
+	int		i,j,kn,n_nos, rank;
 	MPI_Status	status;
         int vetor[1000];
         int soma;
@@ -40,17 +40,41 @@ char			*argv[];
 
         if (rank == 0)
         {
+                omp_set_num_threads(2);
+                #pragma omp parrallel shared (X,A,B) private (i){
+                        #pragma parrallel for
+                        for (i = 0; i < SIZE; i++)
+                        {
+                                A[i] = rand();
+                                B[i] = rand();
+                                X[i] = A[i]*B[i];
 
+                        }
+                }
         }
 
         if (rank == 1)
         {
+                omp_set_num_threads(2);
+                #pragma omp parrallel shared (Y,C,D) private (j){
+                        #pragma parrallel for
+                        for (j = 0; j < SIZE; j++)
+                        {
 
+                        }
+                }
         }
 
         if (rank == 2)
         {
+                omp_set_num_threads(2);
+                #pragma omp parrallel shared (Z,Y,X) private (k){
+                        #pragma parrallel for
+                        for (k = 0; k < SIZE; k++)
+                        {
 
+                        }
+                }
         }
 
         n=1000;
