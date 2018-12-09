@@ -4,6 +4,7 @@
 
 #include <mpi.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <omp.h>
 
 #define SIZE 1000
@@ -16,16 +17,64 @@ double X[SIZE];
 double Y[SIZE];
 double Z[SIZE];
 
+/*
+
+omp_set_num_threads(2);
+                        #pragma omp parrallel shared (X,A,B) private (i){
+                                #pragma parrallel for
+                                for (i = 0; i < SIZE; i++)
+                                {
+                                        A[i] = rand()%100;
+                                        B[i] = rand()%100;
+                                        X[i] = A[i]*B[i];
+                                        printf("rank=%d X[i]=%f\n",rank,X[i]);
+                                        fflush(stdout);
+                                        MPI_Barrier(MPI_COMM_WORLD);
+                                }
+                        }
+                        
+                if (rank == 1)
+                {
+                        omp_set_num_threads(2);
+                        #pragma omp parrallel shared (Y,C,D) private (j){
+                                #pragma parrallel for
+                                for (j = 0; j < SIZE; j++)
+                                {
+                                        C[j] = rand()%100;
+                                        D[j] = rand()%100;
+                                        Y[j] = C[j]*D[j];
+                                        printf("rank=%d Y[j]=%f\n",rank,Y[j]);
+                                        fflush(stdout);
+                                        MPI_Barrier(MPI_COMM_WORLD);
+                                }
+                        }
+                }
+
+                
+                if (rank == 2)
+                {
+                        omp_set_num_threads(2);
+                        #pragma omp parrallel shared (Z,Y,X) private (k){
+                                #pragma parrallel for
+                                for (k = 0; k < SIZE; k++)
+                                {
+                                        Z[k] = X[k]*Y[k];
+                                        printf("rank=%d Z[k]=%f\n",rank,Z[k]);
+                                        fflush(stdout);
+                                }
+                        }
+                } 
+
+*/
+
 main(argc, argv)
 
 int			argc;
 char			*argv[];
 
 {
-	int		i,j,kn,n_nos, rank;
+	int		i,j,k,n_nos,rank;
 	MPI_Status	status;
-        int vetor[1000];
-        int soma;
 /*
  * Initialize MPI.
  */
@@ -38,58 +87,49 @@ char			*argv[];
 	MPI_Comm_size(MPI_COMM_WORLD, &n_nos);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
-        if (rank == 0)
-        {
-                omp_set_num_threads(2);
-                #pragma omp parrallel shared (X,A,B) private (i){
-                        #pragma parrallel for
+
+                /*Processo 0*/
+                if (rank == 0)
+                {
+                        #pragma omp parallel for num_threads(2)
                         for (i = 0; i < SIZE; i++)
                         {
-                                A[i] = rand();
-                                B[i] = rand();
+                                A[i] = rand()%100;
+                                B[i] = rand()%100;
                                 X[i] = A[i]*B[i];
-
+                                printf("rank=%d X[i]=%f\n",rank,X[i]);
+                                fflush(stdout);
+                                MPI_Barrier(MPI_COMM_WORLD);
                         }
                 }
-        }
-
-        if (rank == 1)
-        {
-                omp_set_num_threads(2);
-                #pragma omp parrallel shared (Y,C,D) private (j){
-                        #pragma parrallel for
+                if (rank == 1)
+                {
+                        #pragma omp parallel for num_threads(2)
                         for (j = 0; j < SIZE; j++)
                         {
-
+                                C[j] = rand()%100;
+                                D[j] = rand()%100;
+                                Y[j] = C[j]*D[j];
+                                printf("rank=%d Y[j]=%f\n",rank,Y[j]);
+                                fflush(stdout);
+                                MPI_Barrier(MPI_COMM_WORLD);
                         }
                 }
-        }
 
-        if (rank == 2)
-        {
-                omp_set_num_threads(2);
-                #pragma omp parrallel shared (Z,Y,X) private (k){
-                        #pragma parrallel for
+                
+                if (rank == 2)
+                {
+                        #pragma omp parallel for num_threads(2)
                         for (k = 0; k < SIZE; k++)
                         {
-
+                                Z[k] = X[k]*Y[k];
+                                printf("rank=%d Z[k]=%f\n",rank,Z[k]);
+                                fflush(stdout);
                         }
                 }
-        }
-
-        n=1000;
-        for(i=0;i<n;i++)
-            vetor[i]=i;
-        if (rank == 0) sleep(10); 
-        soma=0;
-        for(i=0;(i<n);i++)
-        soma+=vetor[i];
-        printf("rank=%d soma=%d\n",rank,soma);
-        fflush(stdout);
-        MPI_Barrier(MPI_COMM_WORLD);
-        printf("FIM rank=%d\n",rank);
-        fflush(stdout);
+                printf("FIM rank=%d\n",rank);
+                fflush(stdout);
 	MPI_Finalize();
-	return(0);
+	return 0;
 }
 
